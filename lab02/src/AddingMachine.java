@@ -19,12 +19,14 @@ public class AddingMachine {
 			if (input == 0) {
 				if (isPreviousZero) {
 					System.out.println("total " + total);
-					return;
+					break;
 				} else {
 					System.out.println("subtotal " + subtotal);
 					total += subtotal;
 					subtotal = 0;
 					isPreviousZero = true;
+
+
 				}
 			}
 			subtotal += input;

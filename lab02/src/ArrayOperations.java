@@ -7,8 +7,10 @@ public class ArrayOperations {
     public static void delete(int[] values, int pos) {
         if (pos < 0 || pos >= values.length) {
             return;
+        } else {
+            delete(values, pos);
         }
-        // TODO: YOUR CODE HERE
+
     }
 
     /**
@@ -20,7 +22,7 @@ public class ArrayOperations {
         if (pos < 0 || pos >= values.length) {
             return;
         }
-        // TODO: YOUR CODE HERE
+        insert(values, pos, newInt);
     }
 
     /** 
@@ -28,7 +30,13 @@ public class ArrayOperations {
      *  the elements of B. 
      */
     public static int[] catenate(int[] A, int[] B) {
-        // TODO: YOUR CODE HERE
+        int[] array = new int[a.length  + b.length];
+        for(int i = 0; i < a.length; i++){
+            array[i] = A[i];
+        }
+        for(int i = a.length; i < B.length; i++){
+            array[i] = B[i];
+        }
         return null;
     }
 

@@ -4,9 +4,9 @@ public class DateConverter {
     /**
      * Given a day number in 988, an integer between 1 and 365, as a
      * command-line argument, prints the date in month/day format.
-     *
+
      *     java DateConverter 365
-     *
+
      * should print 12/31
      */
     public static void main(String[] args) {
