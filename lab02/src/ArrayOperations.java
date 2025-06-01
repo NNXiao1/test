@@ -1,3 +1,4 @@
+import java.util.*;
 public class ArrayOperations {
     /**
      * Delete the value at the given position in the argument array, shifting
@@ -8,7 +9,10 @@ public class ArrayOperations {
         if (pos < 0 || pos >= values.length) {
             return;
         } else {
-            delete(values, pos);
+            for (int i = pos; i < values.length - 1; i++){
+                values[i] = values[i+1];
+            }
+            values[values.length - 1] = 0;
         }
 
     }
@@ -22,22 +26,25 @@ public class ArrayOperations {
         if (pos < 0 || pos >= values.length) {
             return;
         }
-        insert(values, pos, newInt);
+//        int[] r = Arrays.copyOf(values, values.length);
+//        for (int i = pos + 1; i < values.length; i++){
+//            values[i] = r[i - 1];
+//        }
+//        values[pos] = newInt;
+        for (int i = values.length -1; i > pos; i--) {
+            values[i] = values[i-1];
+        }
+        values[pos] = newInt;
     }
 
-    /** 
-     * Returns a new array consisting of the elements of A followed by the
-     *  the elements of B. 
-     */
     public static int[] catenate(int[] A, int[] B) {
-        int[] array = new int[a.length  + b.length];
-        for(int i = 0; i < a.length; i++){
+        int[] array = new int[A.length + B.length];
+        for (int i = 0; i < A.length; i++) {
             array[i] = A[i];
         }
-        for(int i = a.length; i < B.length; i++){
-            array[i] = B[i];
+        for (int i = A.length; i < B.length + A.length; i++) {
+            array[i] = B[i - A.length];
         }
-        return null;
+        return array;
     }
-
 }
