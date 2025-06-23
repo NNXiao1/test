@@ -68,8 +68,13 @@ public class SLListFactory<T> {
      * @return new list with A followed by B.
      */
     public SLList<T> dcatenate(SLList<T> A, SLList<T> B) {
-        //TODO: your code here!
-        return null;
+        int i = 0;
+        SLList<T> current = A;
+        while (current.next != null){
+            current = current.next;
+        }
+        current.next = B;
+        return A;
     }
 
     /**
@@ -80,8 +85,20 @@ public class SLListFactory<T> {
      * @param B list to be on the back of the new list.
      * @return new list with A followed by B.
      */
-     public SLList<T> catenate(SLList<T> A, SLList<T> B) {
-        //TODO: your code here!
-         return null;
-     }
+    public SLList<T> catenate(SLList<T> A, SLList<T> B) {
+        SLList<T> A2 = A.copy();
+        SLList<T> B2 = B.copy();
+
+        if (A2 != null && A2.length() != 0) {
+            SLList<T> current = A2;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = B2;
+        } else {
+            return B2;
+        }
+
+        return A2;
+    }
 }

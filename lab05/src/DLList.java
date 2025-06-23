@@ -114,7 +114,33 @@ public class DLList<T> {
 
     /** Adds x to the list at the specified index. */
     public void add(int index, T x) {
-        //TODO: your code here!
+        if (index < 0 || index > size) {
+            return;
+        }
+
+        if (index == 0) {
+            Node newNode = new Node(x, sentinel.next);
+            sentinel.next = newNode;
+            if (newNode.next != null) {
+                newNode.next.prev = newNode;
+            }
+            size++;
+            return;
+        }
+        Node prevNode = sentinel;
+        for (int i = 0; i < index; i++) {
+            prevNode = prevNode.next;
+        }
+
+        Node nextNode = prevNode.next;
+        Node newNode = new Node(x, nextNode);
+        newNode.prev = prevNode;
+        prevNode.next = newNode;
+        if (nextNode != null) {
+            nextNode.prev = newNode;
+        }
+
+        size++;
     }
 
     /** Destructively reverses this list. */
