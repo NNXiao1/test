@@ -24,6 +24,12 @@ public class DLList<T> {
             this.prev = null; // TODO
         }
 
+        public Node(T item, Node next, Node prev) {
+            this.item = item;
+            this.next = next;
+            this.prev = prev;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -43,7 +49,9 @@ public class DLList<T> {
     private Node sentinel;
     private int size;
 
-    /** Creates an empty DLList. */
+    /**
+     * Creates an empty DLList.
+     */
     public DLList() {
         sentinel = new Node(null, null);
         sentinel.next = sentinel;
@@ -91,18 +99,24 @@ public class DLList<T> {
         return result.trim();
     }
 
-    /** Returns the size of the list. */
+    /**
+     * Returns the size of the list.
+     */
     public int size() {
         return size;
     }
 
-    /** Adds x to the front of the list. */
+    /**
+     * Adds x to the front of the list.
+     */
     public void addFirst(T x) {
         sentinel.next = new Node(x, sentinel.next);
         size += 1;
     }
 
-    /** Return the value at the given index. */
+    /**
+     * Return the value at the given index.
+     */
     public T get(int index) {
         Node p = sentinel.next;
         while (index > 0) {
@@ -112,21 +126,16 @@ public class DLList<T> {
         return p.item;
     }
 
-    /** Adds x to the list at the specified index. */
+    /**
+     * Adds x to the list at the specified index.
+     */
     public void add(int index, T x) {
         if (index < 0 || index > size) {
+            this.add(this.size(), x);
             return;
         }
 
-        if (index == 0) {
-            Node newNode = new Node(x, sentinel.next);
-            sentinel.next = newNode;
-            if (newNode.next != null) {
-                newNode.next.prev = newNode;
-            }
-            size++;
-            return;
-        }
+
         Node prevNode = sentinel;
         for (int i = 0; i < index; i++) {
             prevNode = prevNode.next;
@@ -143,8 +152,30 @@ public class DLList<T> {
         size++;
     }
 
-    /** Destructively reverses this list. */
+    /**
+     * Destructively reverses this list.
+     */
     public void reverse() {
-        //TODO: your code here!
+        if (size <= 1) {
+            return;
+        }
+
+        Node newHead = recursiveReverseHelper(sentinel.next, sentinel);
+
+        sentinel.next = newHead;
+        newHead.prev = sentinel;
+    }
+
+    private Node recursiveReverseHelper(Node current, Node prev) {
+        if (current == sentinel) {
+            return prev;
+        }
+
+        Node next = current.next;
+
+        current.next = prev;
+        current.prev = next;
+
+        return recursiveReverseHelper(next, current);
     }
 }

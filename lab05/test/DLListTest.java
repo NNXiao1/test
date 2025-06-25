@@ -24,4 +24,22 @@ public class DLListTest {
         test1.add(0, 0);
         assertWithMessage("list is incorrect after addition at the front").that(test1.equals(factory.of(0, 1, 2, 3, 4, 5))).isTrue();
     }
+    @Test
+    public void reverse() {
+        DLListFactory<Integer> factory = new DLListFactory<>();
+        DLList<Integer> one = factory.of(1, 3, 5);
+        DLList<Integer> two = factory.of(0);
+        DLList<Integer> three = factory.of();
+
+        one.reverse();
+        assertWithMessage("Did not reverse").that(one.get(0)).isEqualTo(5);
+        assertWithMessage("Did not reverse").that(one.get(1)).isEqualTo(3);
+        assertWithMessage("Did not reverse").that(one.get(2)).isEqualTo(1);
+
+        two.reverse();
+        assertWithMessage("Did not prepare for values one or less").that(two.get(0)).isEqualTo(0);
+
+        three.reverse();
+        assertWithMessage("Did not prepare for 0").that(three.get(0)).isEqualTo(null);
+    }
 }

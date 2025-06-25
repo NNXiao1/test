@@ -144,10 +144,5 @@ public class SLList<T> {
         }
         return copy;
     }
-    public static void main(String[] args){
-        SLListFactory<String> factory = new SLListFactory<>();
-        SLList<String> A = factory.of("1", "2", "3");
-        SLList<String> B = A.copy();
 
-    }
 }
