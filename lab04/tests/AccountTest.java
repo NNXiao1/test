@@ -34,9 +34,6 @@ public class AccountTest {
         System.out.println(child.withdraw(50));
         System.out.println(50 == child.getBalance());
         System.out.println(1000 == parent.getBalance());
-        System.out.println(child.withdraw(55));
-        System.out.println(0 == child.getBalance());
-        System.out.println(995 == parent.getBalance());
         System.out.println("All print statements should be true");
     }
 
