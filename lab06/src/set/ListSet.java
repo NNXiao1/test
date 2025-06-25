@@ -17,22 +17,31 @@ public class ListSet implements SimpleSet {
     /** Adds k to the set. */
     @Override
     public void add(int k) {
-        // TODO: Implement this method.
+        elems.add(k);
     }
 
     /** Removes k from the set. */
-    @Override
     public void remove(int k) {
         Integer toRemove = k;
+        int removeIndex = 0;
+        if (this.size() == 0) return;
+        for (int i = 0; i < this.size(); i++){
+            if (i == toRemove) {
+                removeIndex = i;
+                break;
+            }
+        }
         // TODO - use the above variable with an appropriate List method.
         // The reason is beyond the scope of this lab, but involves
         // method resolution.
+        elems.remove(removeIndex);
     }
 
     /** Return true if k is in this set, false otherwise. */
     @Override
     public boolean contains(int k) {
         // TODO: Implement this method.
+            if (elems.contains(k)) return true;
         return false;
     }
 
@@ -46,13 +55,18 @@ public class ListSet implements SimpleSet {
     @Override
     public int size() {
         // TODO: Implement this method.
-        return 0;
+        return elems.size();
     }
 
     /** Returns an array containing all of the elements in this collection. */
     @Override
     public int[] toIntArray() {
         // TODO - use a for loop!
-        return null;
+        if (this.size() == 0) return null;
+        int[] ints = new int[this.size()];
+        for (int i = 0; i < this.size(); i++){
+            ints[i] = elems.get(i);
+        }
+        return ints;
     }
 }
