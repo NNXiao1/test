@@ -10,9 +10,9 @@ import ucb.util.CommandArgs;
 public class Main {
 
     /** Number of squares on the side of a board. */
-    static final int BOARD_SIZE = 4;
+    static final int BOARD_SIZE = 6;
     /** Probability of choosing 2 as random tile (as opposed to 4). */
-    static final double TILE2_PROBABILITY = 0.9;
+    static final double TILE2_PROBABILITY = 0.1;
 
     /** The main program.  ARGS may contain the options --seed=NUM,
      *  (random seed); --log (record moves and random tiles
@@ -25,7 +25,7 @@ public class Main {
             System.err.println("Usage: java game2048.Main [ --seed=NUM ] "
                                + "[ --log=LOG_FILE ]");
             System.exit(1);
-        }
+        } 
 
         Random gen = new Random();
         if (options.contains("--seed")) {

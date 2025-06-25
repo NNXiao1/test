@@ -55,7 +55,6 @@ public class Tile {
         _next = otherTile._next = new Tile(2 * _value, col, row);
         return _next;
     }
-
     /** Return the distance in rows or columns between me and my successor
      *  tile (0 if I have no successor). */
     public int distToNext() {
