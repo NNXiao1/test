@@ -1,8 +1,9 @@
 import java.util.Arrays;
 import java.util.Objects;
+import java.math.*;
 
 /** Represents an example of how a website might model a user. */
-public class User {
+public class User implements Comparable<User>{
 
     private static int nextId = 1;
 
@@ -22,6 +23,14 @@ public class User {
         this.name = name;
         this.email = email;
         setAge();
+    }
+
+    public int compareTo(User otherUser) {
+        if (this.id != otherUser.id) {
+            return Integer.compare(this.id, otherUser.id);
+        } else {
+            return this.name.compareTo(otherUser.name);
+        }
     }
 
     /** For this assignment, age is just an automatically assigned field. */
