@@ -1,18 +1,20 @@
 import java.util.Arrays;
+import java.util.Iterator; // Import Iterator
+import java.util.Objects; // Import Objects for better equals comparison
 
 /**
- * A src.AList is a list of integers. Like SLList, it also hides the terrible
+ * A src.AList is a list of items. Like SLList, it also hides the terrible
  * truth of the nakedness within, but uses an array as it's base.
  */
-public class AList<Item> {
+public class AList<Item> implements Iterable<Item> { // Change to Iterable<Item>
 
     private Item[] items;
     private int size;
 
     /** Creates an empty src.AList. */
     public AList() {
-	items = (Item[]) new Object[8];
-    size = 0;
+        items = (Item[]) new Object[8];
+        size = 0;
     }
 
     /** Returns a src.AList consisting of the given values. */
@@ -45,6 +47,14 @@ public class AList<Item> {
         items = newItems;
     }
 
+    /** Returns the item at the specified index. */
+    public Item get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        return items[index];
+    }
+
     @Override
     public String toString() {
         String result = "";
@@ -62,15 +72,54 @@ public class AList<Item> {
         return result;
     }
 
-
     /** Returns whether this and the given list or object are equal. */
+    @Override
     public boolean equals(Object o) {
-        AList other = (AList) o;
-        return Arrays.deepEquals(items, other.getItems());
+        // Check for self-comparison
+        if (this == o) {
+            return true;
+        }
+        // Check for null and type compatibility
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        // Cast the object to AList
+        AList<?> other = (AList<?>) o; // Use wildcard for flexibility
+
+        // Compare size
+        if (size != other.size) {
+            return false;
+        }
+
+        // Compare elements using Objects.equals for null safety
+        for (int i = 0; i < size; i++) {
+            if (!Objects.equals(items[i], other.items[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    private Item[] getItems() {
-        return items;
+    // Implementing the Iterator interface
+    @Override
+    public Iterator<Item> iterator() {
+        return new AListIterator();
     }
 
+    private class AListIterator implements Iterator<Item> {
+        private int current = 0; // Cursor to keep track of elements
+
+        @Override
+        public boolean hasNext() {
+            return current < size;
+        }
+
+        @Override
+        public Item next() {
+            if (!hasNext()) {
+                throw new java.util.NoSuchElementException();
+            }
+            return items[current++];
+        }
+    }
 }
