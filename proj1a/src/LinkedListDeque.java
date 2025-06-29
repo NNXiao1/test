@@ -27,12 +27,8 @@ public class LinkedListDeque<T> implements Deque<T> {
 
         public Node(T item, Node next, Node prev) {
             this.item = item;
-            if (next != null) this.next = next;
-            if (prev != null) this.prev = prev;
-            assert next != null;
-            next.next = this;
-            assert prev != null;
-            prev.prev = this;
+            this.next = next;
+            this.prev = prev;
         }
 
         @Override
@@ -54,35 +50,25 @@ public class LinkedListDeque<T> implements Deque<T> {
     private int size;
 
     public LinkedListDeque() {
-        sentinel1 = new Node(null, sentinel2);
         sentinel2 = new Node(null);
+        sentinel1 = new Node(null, sentinel2);
         sentinel2.prev = sentinel1;
         size = 0;
     }
 
     @Override
     public void addFirst(T x) {
-        Node newNode = new Node(x);
-
-        newNode.next = sentinel1.next;
-        newNode.prev = sentinel1;
-
-        sentinel1.next.prev = newNode;
-        sentinel1.next = newNode;
-
+        Node newNode = new Node(x, sentinel1.next, sentinel1);
+        sentinel1.next.prev = newNode; // Update the old first node's prev
+        sentinel1.next = newNode;     // Update sentinel1's next to the new node
         size++;
     }
 
     @Override
     public void addLast(T x) {
-        Node newNode = new Node(x);
-
-        newNode.next = sentinel2;
-        newNode.prev = sentinel2.prev;
-
-        sentinel2.prev.next = newNode;
-        sentinel2.prev = newNode;
-
+        Node newNode = new Node(x, sentinel2, sentinel2.prev);
+        sentinel2.prev.next = newNode; // Update the old last node's next
+        sentinel2.prev = newNode;      // Update sentinel2's prev to the new node
         size++;
     }
 
