@@ -15,6 +15,11 @@ public class ArrayDeque<T> implements Deque<T> {
         size = 0;
     }
 
+    public ArrayDeque(int x) {
+        list = new Object[x];
+        size = 0;
+    }
+
     @Override
     public void addFirst(T x) {
         if (list.length == size) {
@@ -96,12 +101,13 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeFirst() {
-        if (size == 0) {
-            return null;
+        if (isEmpty()) {
+            throw new NoSuchElementException("Deque is empty.");
         }
+        Object x = list[0];
         shiftleft(list);
         size--;
-        return null;
+        return (T) x;
     }
 
     @Override
@@ -184,5 +190,10 @@ public class ArrayDeque<T> implements Deque<T> {
             if (i != size - 1) str += ", ";
         }
         return str + "]";
+    }
+
+    @Override
+    public T getFirst(){
+        return (T) list[0];
     }
 }

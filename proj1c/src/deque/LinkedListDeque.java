@@ -5,6 +5,7 @@ import deque.Deque;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class LinkedListDeque<T> implements Deque<T> {
     @Override
@@ -122,7 +123,12 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public T removeFirst() {
-        return null;
+        if (isEmpty()) {
+            throw new NoSuchElementException("Deque is empty.");
+        }
+        T x = sentinel1.next.item;
+        sentinel1.next = sentinel1.next.next;
+        return x;
     }
 
     @Override
@@ -199,6 +205,11 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
 
         return true;
+    }
+
+    @Override
+    public T getFirst(){
+        return sentinel1.next.item;
     }
 }
 

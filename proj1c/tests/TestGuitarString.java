@@ -58,7 +58,7 @@ public class TestGuitarString  {
     @Test
     public void testTicCalculations() {
         // Create a GuitarString of frequency 11025, which
-        // is a Deque of length 4.
+        // is a Deque61B of length 4.
         GuitarString s = new GuitarString(11025);
         s.pluck();
 
@@ -82,4 +82,3 @@ public class TestGuitarString  {
         assertWithMessage(errorMsg).that(s5).isWithin(0.001).of(expected);
     }
 }
-
