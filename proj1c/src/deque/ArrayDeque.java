@@ -36,17 +36,36 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) { return false; }
-        if (this == o) { return true; } // optimization
-        if (this.getClass() != o.getClass()) { return false; }
-        ArrayDeque<T> other = (ArrayDeque<T>) o;
-        if (this.size() != other.size()) { return false; }
-        for (T item : this) {
-            if (!other.contains(item)) {
+        if (o == null) {
+            return false;
+        }
+        if (this == o) {
+            return true;
+        }
+        if (this.getClass() != o.getClass()) {
+            return false;
+        }
+        ArrayDeque<?> other = (ArrayDeque<?>) o;
+        if (this.size() != other.size()) {
+            return false;
+        }
+
+        Iterator<T> thisIterator = this.iterator();
+        Iterator<?> otherIterator = other.iterator();
+        while (thisIterator.hasNext() && otherIterator.hasNext()) {
+            T thisItem = thisIterator.next();
+            Object otherItem = otherIterator.next();
+            if (thisItem == null && otherItem != null) {
                 return false;
             }
+            if (thisItem != null && !thisItem.equals(otherItem)) {
+                return false;
+            }
+            if (thisItem == null && otherItem == null) {
+            }
         }
-        return true;
+
+        return !thisIterator.hasNext() && !otherIterator.hasNext();
     }
 
     private boolean contains(T item) {

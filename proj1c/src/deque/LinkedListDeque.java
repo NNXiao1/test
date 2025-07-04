@@ -166,5 +166,39 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
         return str + "]";
     }
+
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof LinkedListDeque)) {
+            return false;
+        }
+
+        LinkedListDeque<?> other = (LinkedListDeque<?>) o;
+        if (this.size() != other.size()) {
+            return false;
+        }
+
+        Iterator<T> thisIterator = this.iterator();
+        Iterator<?> otherIterator = other.iterator();
+        while (thisIterator.hasNext()) {
+            T thisItem = thisIterator.next();
+            Object otherItem = otherIterator.next();
+            if (thisItem == null && otherItem != null) {
+                return false;
+            }
+            if (thisItem != null && !thisItem.equals(otherItem)) {
+                return false;
+            }
+            if (thisItem == null && otherItem == null) {
+            }
+        }
+
+        return true;
+    }
 }
 
