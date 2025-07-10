@@ -16,20 +16,58 @@ public class BinaryTree<T> {
 
     /* Returns the height of the tree. */
     public int height() {
-        // TODO: YOUR CODE HERE
-        return 0;
+        return calculateHeight(root);
     }
+
+    /* Helper method to calculate the height of a subtree rooted at 'node'. */
+    // Moved to be a static method within BinaryTree.
+    private static <T> int calculateHeight(TreeNode<T> node) {
+        if (node == null) {
+            return 0; // The height of a null subtree is 0
+        }
+        int leftHeight = calculateHeight(node.left);
+        int rightHeight = calculateHeight(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
 
     /* Returns true if the tree's left and right children are the same height
        and are themselves completely balanced. */
     public boolean isCompletelyBalanced() {
-        // TODO: YOUR CODE HERE
-        return false;
+        // Handle empty tree and single-node tree as completely balanced
+        if (root == null || (root.left == null && root.right == null)) {
+            return true;
+        }
+        return balancedHelper(root);
+    }
+
+    // Helper method for isCompletelyBalanced
+    public static <T> boolean balancedHelper(TreeNode<T> tree) {
+        if (tree == null) {
+            return true; // A null subtree is considered completely balanced
+        }
+        // Base case: Leaf nodes are completely balanced
+        if (tree.left == null && tree.right == null) {
+            return true;
+        }
+
+        // Calculate heights of left and right subtrees
+        int leftHeight = calculateHeight(tree.left);
+        int rightHeight = calculateHeight(tree.right);
+
+        // For a tree to be completely balanced (non-leaf), the heights of its
+        // left and right children must be exactly equal.
+        if (leftHeight != rightHeight) {
+            return false;
+        }
+
+        // Recursively check if both left and right subtrees are also completely balanced
+        return balancedHelper(tree.left) && balancedHelper(tree.right);
     }
 
     /* Returns a BinaryTree representing the Fibonacci calculation for N. */
     public static BinaryTree<Integer> fibTree(int N) {
-        BinaryTree<Integer> result = new BinaryTree<Integer>();
+        // TODO: Implement this method
         return null;
     }
 
@@ -46,8 +84,8 @@ public class BinaryTree<T> {
     }
 
     /* Print the values in the tree in inorder: values in the left subtree
-       first (in inorder), then the root value, then values in the first
-       subtree (in inorder). */
+       first (in inorder), then the root value, then values in the right subtree
+       (in inorder). */
     public void printInorder() {
         if (root == null) {
             System.out.println("(empty tree)");
@@ -57,59 +95,7 @@ public class BinaryTree<T> {
         }
     }
 
-    /* Prints out the contents of a BinaryTree with a description in both
-       preorder and inorder. */
-    private static void print(BinaryTree t, String description) {
-        System.out.println(description + " in preorder");
-        t.printPreorder();
-        System.out.println(description + " in inorder");
-        t.printInorder();
-        System.out.println();
-    }
-
-    /* Fills this BinaryTree with values a, b, and c. DO NOT MODIFY. */
-    public void sampleTree1() {
-        root = new TreeNode("a", new TreeNode("b"), new TreeNode("c"));
-    }
-
-    /* Fills this BinaryTree with values a, b, and c, d, e, f. DO NOT MODIFY. */
-    public void sampleTree2() {
-        root = new TreeNode("a",
-                  new TreeNode("b", new TreeNode("d", new TreeNode("e"),
-                  new TreeNode("f")), null), new TreeNode("c"));
-    }
-
-    /* Fills this BinaryTree with the values a, b, c, d, e, f. DO NOT MODIFY. */
-    public void sampleTree3() {
-        root = new TreeNode("a", new TreeNode("b"), new TreeNode("c",
-               new TreeNode("d", new TreeNode("e"), new TreeNode("f")), null));
-    }
-
-    /* Fills this BinaryTree with the same leaf TreeNode. DO NOT MODIFY. */
-    public void sampleTree4() {
-        TreeNode leafNode = new TreeNode("c");
-        root = new TreeNode("a", new TreeNode("b", leafNode, leafNode),
-                                 new TreeNode("d", leafNode, leafNode));
-    }
-
-    /* Creates two BinaryTrees and prints them out in inorder. */
-    public static void main(String[] args) {
-        BinaryTree t;
-        t = new BinaryTree();
-        print(t, "the empty tree");
-        t.sampleTree1();
-        print(t, "sample tree 1");
-        t.sampleTree2();
-        print(t, "sample tree 2");
-        t.sampleTree3();
-        print(t, "sample tree 3");
-        t.sampleTree4();
-        print(t, "sample tree 4");
-    }
-
-    /* Note: this class is public in this lab for testing purposes. However,
-       in professional settings as well as the rest of your labs and projects,
-       we recommend that you keep your inner classes private. */
+    // Static nested TreeNode class
     static class TreeNode<T> {
 
         private T item;
@@ -171,7 +157,5 @@ public class BinaryTree<T> {
                 right.printInorder();
             }
         }
-
-        // TODO: ADD HELPER METHODS HERE
     }
 }

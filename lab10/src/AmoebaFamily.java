@@ -5,12 +5,14 @@ import java.util.Iterator;
    any number of children. */
 public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
 
+    public static ArrayList<Amoeba> members = new ArrayList<>();
     /* ROOT is the root amoeba of this AmoebaFamily */
     private Amoeba root = null;
 
     /* Creates an AmoebaFamily, where the first Amoeba's name is NAME. */
     public AmoebaFamily(String name) {
         root = new Amoeba(name, null);
+        members.add(root);
     }
 
     /* Adds a new Amoeba with CHILDNAME to this AmoebaFamily as the youngest
@@ -32,8 +34,12 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
 
     /* Returns the longest name in this AmoebaFamily. */
     public String longestName() {
-        // TODO: YOUR CODE HERE
-        return "";
+        for (Amoeba i : members) {
+            if (i.name.length() == this.longestNameLength()) {
+                return i.name;
+            }
+        }
+        return null;
     }
 
     /* Returns an Iterator for this AmoebaFamily. */
@@ -56,8 +62,9 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
         family.addChild("Mike", "Lisa");
         family.addChild("Marge", "Bill");
         family.addChild("Marge", "Hilary");
-        System.out.println("Here's the family!");
-        // Optional TODO: use the iterator to print out the family!
+        String i = family.longestName();
+        System.out.println(i);
+        System.out.println(family.longestNameLength());
     }
 
     /* An Amoeba is a node of an AmoebaFamily. */
@@ -90,6 +97,7 @@ public class AmoebaFamily implements Iterable<AmoebaFamily.Amoeba> {
             if (name.equals(parentName)) {
                 Amoeba child = new Amoeba(childName, this);
                 children.add(child);
+                members.add(child);
             } else {
                 for (Amoeba a : children) {
                     a.addChildHelper(parentName, childName);
