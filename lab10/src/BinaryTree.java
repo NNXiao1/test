@@ -67,8 +67,28 @@ public class BinaryTree<T> {
 
     /* Returns a BinaryTree representing the Fibonacci calculation for N. */
     public static BinaryTree<Integer> fibTree(int N) {
-        // TODO: Implement this method
-        return null;
+        if (N < 0) {
+            throw new IllegalArgumentException("N must be a non-negative integer for fibTree.");
+        }
+
+        // Base cases for Fibonacci sequence
+        if (N == 0) {
+            return new BinaryTree<>(new TreeNode<>(0)); // F(0) = 0
+        }
+        if (N == 1) {
+            return new BinaryTree<>(new TreeNode<>(1)); // F(1) = 1
+        }
+
+        // Recursive step: Calculate F(N-1) and F(N-2) recursively
+        // and build the tree structure based on the definition
+        BinaryTree<Integer> leftSubtree = fibTree(N - 1);
+        BinaryTree<Integer> rightSubtree = fibTree(N - 2);
+
+        // The root's item is the sum of the left and right children's items (F(N-1) + F(N-2) = F(N))
+        int rootValue = leftSubtree.getRoot().getItem() + rightSubtree.getRoot().getItem();
+
+        TreeNode<Integer> rootNode = new TreeNode<>(rootValue, leftSubtree.getRoot(), rightSubtree.getRoot());
+        return new BinaryTree<>(rootNode);
     }
 
     /* Print the values in the tree in preorder: root value first, then values
